@@ -19,6 +19,7 @@
     <main>
           <div class="container-fluid">
             <div class="row">
+
               <div class="col-sm-3">
                 <form id="city-search-form">
                   <div class="mb-3 search">
@@ -28,11 +29,20 @@
                    <button id="search-btn" type="submit" class="btn btn-primary">Search</button>
                 </form>
               </div>
+
               <div class="col-sm-9">
+                <div class="card">
+                  <div class="card-body" id="city-weather-info">
+                    <div id="city-info"></div>
+                  </div>
+                </div>
               </div>
+
             </div>
           </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.7.1.js"
       integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
