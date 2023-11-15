@@ -49,7 +49,7 @@ h1::after {
 }
 
 #current-temp {
-    font:bolder;
+    font: bolder;
     font-size: 35px;
 }
 
@@ -72,10 +72,7 @@ h1::after {
 
 #five-day-temp,
 #five-day-date {
-    color: white
-}
-
-#five-day-temp {
+    color: white;
     text-align: center;
 }
 
@@ -85,7 +82,13 @@ h1::after {
 }
 
 .local-storage-btn {
+    color: white;
     border-radius: 20px;
     margin: 5px 0;
     background-image: linear-gradient(60deg, var(--lightteal), var(--darkblue));
+}
+
+.local-storage-btn:hover {
+    border-color: var(--black);
+    box-shadow: 0 0 5px var(--black);
 }

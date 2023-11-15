@@ -34,30 +34,23 @@ function coordinatesFetch(lat,lon){
       .then(function (data) {
         console.log(data);
 
-        var nameOfCity = $('<h2>');
+        var nameOfCity = $('#city-name');
         nameOfCity.text(data.city.name + ', ' + data.city.country + ' (' + currentDate + ')');
-        $('#city-info').append(nameOfCity);
 
-        var currentWeather = $('<img>');
+        var currentWeather = $('#current-weather-img');
         var iconcode = data.list[0].weather[0].icon;
         var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
         currentWeather.attr('src', iconurl);
-        $('#current-weather').append(currentWeather);
 
-        var currentTemp = $('<p>');
+        var currentTemp = $('#current-temp');
         currentTemp.text(data.list[0].main.temp + '°F');
-        currentTemp.attr('id', 'current-temp');
-        $('#current-weather').append(currentTemp);
 
-        var currentHum = $('<p>');
+        var currentHum = $('#current-hum');
         currentHum.text('Humidity: ' + data.list[0].main.humidity + '%');
-        currentHum.attr('id', 'current-hum');
-        $('#current-weather').append(currentHum);
 
-        var currentWind= $('<p>');
+        var currentWind= $('#current-wind');
         currentWind.text('Wind: ' + data.list[0].wind.speed + ' mph');
-        currentWind.attr('id', 'current-wind');
-        $('#current-weather').append(currentWind);
+
 
         function fiveDaysForecast(div,day) {
           var date = dayjs(day.dt_txt).format('MMMM D, YYYY');
@@ -87,6 +80,8 @@ function coordinatesFetch(lat,lon){
         fiveDaysForecast($('#day-five'),data.list[39]);
       })
 }
+
+
 
 // event listener for search button , which captures search input and calls function for getting city coordinates
 $('#search-btn').on('click', function(){
