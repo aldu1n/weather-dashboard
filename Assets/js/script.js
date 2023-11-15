@@ -35,12 +35,56 @@ function coordinatesFetch(lat,lon){
         console.log(data);
 
         var nameOfCity = $('<h2>');
-        nameOfCity.text(data.city.name + ', ' + data.city.country);
+        nameOfCity.text(data.city.name + ', ' + data.city.country + ' (' + currentDate + ')');
         $('#city-info').append(nameOfCity);
 
-        var date = $('<p>');
-        date.text(currentDate);
-        $('#city-info').append(date);
+        var currentWeather = $('<img>');
+        var iconcode = data.list[0].weather[0].icon;
+        var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+        currentWeather.attr('src', iconurl);
+        $('#current-weather').append(currentWeather);
+
+        var currentTemp = $('<p>');
+        currentTemp.text(data.list[0].main.temp + '°F');
+        currentTemp.attr('id', 'current-temp');
+        $('#current-weather').append(currentTemp);
+
+        var currentHum = $('<p>');
+        currentHum.text('Humidity: ' + data.list[0].main.humidity + '%');
+        currentHum.attr('id', 'current-hum');
+        $('#current-weather').append(currentHum);
+
+        var currentWind= $('<p>');
+        currentWind.text('Wind: ' + data.list[0].wind.speed + ' mph');
+        currentWind.attr('id', 'current-wind');
+        $('#current-weather').append(currentWind);
+
+        function fiveDaysForecast(div,day) {
+          var date = dayjs(day.dt_txt).format('MMMM D, YYYY');
+          
+          var dateEl = $('<p>');
+          dateEl.attr('id','five-day-date');
+          dateEl.text(date);
+          div.append(dateEl);
+
+          var fiveDayWeather = $('<img>');
+          var iconcode = day.weather[0].icon;
+          var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+          fiveDayWeather.attr('src', iconurl);
+          fiveDayWeather.attr('id','five-day-img');
+          div.append(fiveDayWeather);
+  
+          var fiveDayTemp = $('<p>');
+          fiveDayTemp.attr('id','five-day-temp');
+          fiveDayTemp.text(day.main.temp + '°F');
+          div.append(fiveDayTemp);
+        }
+
+        fiveDaysForecast($('#day-one'),data.list[8]);
+        fiveDaysForecast($('#day-two'),data.list[16]);
+        fiveDaysForecast($('#day-three'),data.list[24]);
+        fiveDaysForecast($('#day-four'),data.list[32]);
+        fiveDaysForecast($('#day-five'),data.list[39]);
       })
 }
 

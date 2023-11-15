@@ -38,3 +38,54 @@ h1::after {
     border-color: var(--lightteal);
     box-shadow: 5px 5px 0 var(--darkgreen);
 }
+.city-card {
+    border: none;
+}
+
+#city-weather-info {
+    margin: 10px 0;
+    border-radius: 30px;
+    background-image: linear-gradient(60deg, var(--lightteal), var(--darkblue));
+}
+
+#current-temp {
+    font:bolder;
+    font-size: 35px;
+}
+
+#current-hum,
+#current-wind {
+    display: inline;
+    padding-right: 20px;
+    font-size: 20px;
+}
+
+.five-day-card {
+    background-image: linear-gradient(60deg, var(--lightteal), var(--darkblue));
+    border-radius: 5px;
+}
+
+.five-day-div {
+    margin-top: 30px;
+    width: 20%;
+}
+
+#five-day-temp,
+#five-day-date {
+    color: white
+}
+
+#five-day-temp {
+    text-align: center;
+}
+
+.local-storage-div {
+    margin-top: 10px;
+    border: none;
+}
+
+.local-storage-btn {
+    border-radius: 20px;
+    margin: 5px 0;
+    background-image: linear-gradient(60deg, var(--lightteal), var(--darkblue));
+}
