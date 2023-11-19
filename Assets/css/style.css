@@ -32,6 +32,10 @@ h1::after {
     box-shadow: 0 0 5px var(--black);
 }
 
+#city-input{
+    border: 1px solid #005B41;
+}
+
 #city-input:hover,
 #city-input:active,
 #city-input:focus {
@@ -91,4 +95,8 @@ h1::after {
 .local-storage-btn:hover {
     border-color: var(--black);
     box-shadow: 0 0 5px var(--black);
+}
+
+.hidden {
+    display: none;
 }

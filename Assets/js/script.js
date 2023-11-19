@@ -17,6 +17,20 @@ function cityNameFetch(city) {
         var lon = data[0].lon;
         coordinatesFetch(lat,lon)
       })
+      .catch(error => {
+        if (error instanceof TypeError) {
+          var time = 2;
+          function alertTimer(){
+            $('.alert-danger').removeClass('hidden');
+            time--;
+            if (time <= 0){
+              $('.alert-danger').addClass('hidden');
+            }
+          }
+          setInterval(alertTimer, 1000);
+          alertTimer();
+        }
+      });
 }
 
 // fetch for getting city weather info based on coordinates
@@ -32,7 +46,8 @@ function coordinatesFetch(lat,lon){
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
+
+        $('.col-sm-9').removeClass('hidden');
 
         var nameOfCity = $('#city-name');
         nameOfCity.text(data.city.name + ', ' + data.city.country + ' (' + currentDate + ')');
@@ -52,32 +67,26 @@ function coordinatesFetch(lat,lon){
         currentWind.text('Wind: ' + data.list[0].wind.speed + ' mph');
 
 
-        function fiveDaysForecast(div,day) {
+        function fiveDaysForecast(div,div1,div2,day) {
           var date = dayjs(day.dt_txt).format('MMMM D, YYYY');
           
-          var dateEl = $('<p>');
-          dateEl.attr('id','five-day-date');
-          dateEl.text(date);
-          div.append(dateEl);
-
-          var fiveDayWeather = $('<img>');
+          var dateEl = document.querySelector(div);
+          dateEl.textContent = date;
+        
+          var fiveDayWeather = document.querySelector(div1);
           var iconcode = day.weather[0].icon;
           var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-          fiveDayWeather.attr('src', iconurl);
-          fiveDayWeather.attr('id','five-day-img');
-          div.append(fiveDayWeather);
-  
-          var fiveDayTemp = $('<p>');
-          fiveDayTemp.attr('id','five-day-temp');
-          fiveDayTemp.text(day.main.temp + '°F');
-          div.append(fiveDayTemp);
+          fiveDayWeather.setAttribute('src', iconurl);
+        
+          var fiveDayTemp = document.querySelector(div2);
+          fiveDayTemp.textContent = day.main.temp + '°F';
         }
 
-        fiveDaysForecast($('#day-one'),data.list[8]);
-        fiveDaysForecast($('#day-two'),data.list[16]);
-        fiveDaysForecast($('#day-three'),data.list[24]);
-        fiveDaysForecast($('#day-four'),data.list[32]);
-        fiveDaysForecast($('#day-five'),data.list[39]);
+        fiveDaysForecast("div#day-one > p#five-day-date","div#day-one > img#five-day-img","div#day-one > p#five-day-temp",data.list[8]);
+        fiveDaysForecast("div#day-two > p#five-day-date","div#day-two > img#five-day-img","div#day-two > p#five-day-temp",data.list[16]);
+        fiveDaysForecast("div#day-three > p#five-day-date","div#day-three > img#five-day-img","div#day-three > p#five-day-temp",data.list[24]);
+        fiveDaysForecast("div#day-four > p#five-day-date","div#day-four > img#five-day-img","div#day-four > p#five-day-temp",data.list[32]);
+        fiveDaysForecast("div#day-five > p#five-day-date","div#day-five > img#five-day-img","div#day-five > p#five-day-temp",data.list[39]);
       })
 }
 
@@ -89,5 +98,3 @@ $('#search-btn').on('click', function(){
     var searchValue = document.getElementById('city-input').value;
     cityNameFetch(searchValue);
 })
-
-
