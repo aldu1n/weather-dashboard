@@ -100,3 +100,10 @@ h1::after {
 .hidden {
     display: none;
 }
+
+@media screen and (max-width: 768px) {
+    .five-day-div {
+        margin-top: 30px;
+        width: 100%;
+    }
+  }

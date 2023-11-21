@@ -1,7 +1,7 @@
-// day.js plugin to get current date
+// Day.js plugin to get current date
 var currentDate = dayjs().format('MMMM D, YYYY'); 
 
-// fetch for getting specific city coordinates
+// Fetch for getting specific city coordinates
 function cityNameFetch(city) {
     var searchUrl = 'http://api.openweathermap.org/geo/1.0/direct';
     var cityName = "?q=" + city;
@@ -15,7 +15,8 @@ function cityNameFetch(city) {
       .then(function (data) {
         var lat = data[0].lat;
         var lon = data[0].lon;
-        coordinatesFetch(lat,lon)
+        coordinatesFetch(lat,lon);
+        saveSearchHistory(city);
       })
       .catch(error => {
         if (error instanceof TypeError) {
@@ -33,7 +34,7 @@ function cityNameFetch(city) {
       });
 }
 
-// fetch for getting city weather info based on coordinates
+// Fetch for getting city weather info based on coordinates, and then creating html elements to show weather data.
 function coordinatesFetch(lat,lon){
     var searchUrl = 'http://api.openweathermap.org/data/2.5/forecast';
     var cityLat = '?lat=' + lat;
@@ -66,7 +67,7 @@ function coordinatesFetch(lat,lon){
         var currentWind= $('#current-wind');
         currentWind.text('Wind: ' + data.list[0].wind.speed + ' mph');
 
-
+       // Function to show 5 day forecast
         function fiveDaysForecast(div,div1,div2,day) {
           var date = dayjs(day.dt_txt).format('MMMM D, YYYY');
           
@@ -92,9 +93,44 @@ function coordinatesFetch(lat,lon){
 
 
 
-// event listener for search button , which captures search input and calls function for getting city coordinates
+// Event listener for search button , which captures search input and calls function for getting city coordinates
 $('#search-btn').on('click', function(){
     event.preventDefault();
     var searchValue = document.getElementById('city-input').value;
     cityNameFetch(searchValue);
 })
+
+
+// Function to save search history in local storage
+function saveSearchHistory(city) {
+  var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+  if (!searchHistory.includes(city)) {
+    if (searchHistory.length >= 5) {
+      searchHistory.pop(); 
+    }
+    searchHistory.unshift(city); 
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    updateLocalStorageButtons();
+  }
+}
+
+// Function to update the local storage buttons
+function updateLocalStorageButtons() {
+  var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+  $('.local-storage-btn').each(function (index) {
+    if (index < searchHistory.length) {
+      $(this).text(searchHistory[index]);
+      $(this).removeClass('hidden');
+    } else {
+      $(this).addClass('hidden');
+    }
+  });
+}
+
+// Event listener for local storage buttons
+$('.local-storage-btn').on('click', function () {
+  var searchValue = $(this).text();
+  cityNameFetch(searchValue);
+});
+
+updateLocalStorageButtons();
