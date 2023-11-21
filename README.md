@@ -15,7 +15,7 @@ Open 'index.html' in any browser, or follow this Git Pages link: [Weather Dashbo
 
 ## Screenshot
 
-![Screenshot of website](./assets/images/screenshot/Screenshot.png)
+![Screenshot of website](./Assets/images/screenshot/Screenshot.png)
 
 ## Credits
 
