@@ -3,7 +3,7 @@ var currentDate = dayjs().format('MMMM D, YYYY');
 
 // Fetch for getting specific city coordinates
 function cityNameFetch(city) {
-    var searchUrl = 'http://api.openweathermap.org/geo/1.0/direct';
+    var searchUrl = 'https://api.openweathermap.org/geo/1.0/direct';
     var cityName = "?q=" + city;
     var searchLimit = "&limit=1";
     var apiKey = '&appid=625acfc2e00757d032cf19e083834e38';
@@ -36,7 +36,7 @@ function cityNameFetch(city) {
 
 // Fetch for getting city weather info based on coordinates, and then creating html elements to show weather data.
 function coordinatesFetch(lat,lon){
-    var searchUrl = 'http://api.openweathermap.org/data/2.5/forecast';
+    var searchUrl = 'https://api.openweathermap.org/data/2.5/forecast';
     var cityLat = '?lat=' + lat;
     var cityLon = '&lon=' + lon;
     var apiKey = '&appid=625acfc2e00757d032cf19e083834e38';
@@ -55,7 +55,7 @@ function coordinatesFetch(lat,lon){
 
         var currentWeather = $('#current-weather-img');
         var iconcode = data.list[0].weather[0].icon;
-        var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+        var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
         currentWeather.attr('src', iconurl);
 
         var currentTemp = $('#current-temp');
@@ -76,7 +76,7 @@ function coordinatesFetch(lat,lon){
         
           var fiveDayWeather = document.querySelector(div1);
           var iconcode = day.weather[0].icon;
-          var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+          var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
           fiveDayWeather.setAttribute('src', iconurl);
         
           var fiveDayTemp = document.querySelector(div2);
